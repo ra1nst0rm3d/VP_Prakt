@@ -1,14 +1,8 @@
 #pragma once
 
-
-typedef struct RowData_s {
-    unsigned Day, Month, Year, Course;
-    char Surname[20], Group[10];
-} RowData_s;
-
 typedef struct Menu_s {
     unsigned Pos;
-    char* Str;
+    const char* Val;
 } Menu_s;
 
 const Menu_s MenuTable[13] = {
@@ -26,6 +20,3 @@ const Menu_s MenuTable[13] = {
     {12, "Сортировка"},
     {13, "Выход"}
 };
-
-static RowData_s* BasePtr;
-static unsigned Size = 1;

@@ -1,16 +1,19 @@
 #include <iostream>
-#include <cstring>
 
-#include "../include/structs.hh"
-#include "../include/user_interact.hh"
+#include "config.hh"
+#include "struct.hh"
+#include "user_interact.hh"
+
+#include "libDB.hh"
+
+
 using namespace std;
 
-
 int main() {
-    cout << "База данных\n";
-    BasePtr = (RowData_s*)malloc(sizeof(RowData_s));
-    memset(BasePtr, 0, sizeof(RowData_s));
+    libDB::Init();
+    cout << "База данных" << endl;
     print_menu();
     user_handle();
+    libDB::ShutDown();
     return 0;
 }
