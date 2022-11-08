@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <ios>
 #include <iostream>
 #include <iomanip>
@@ -42,7 +43,7 @@ void Output() {
 
 void InputFile(enum IO io, const char* filename) {
     libDB::Reset();
-    unsigned LocalSize;
+    size_t LocalSize;
     ifstream in;
     ROW_STRUCT Data;
     if(io == BINARY) {
@@ -51,7 +52,7 @@ void InputFile(enum IO io, const char* filename) {
             cout << "InputFile: File not found!" << endl;
             return;
         }
-        in >> LocalSize;
+        in.read((char*)&LocalSize, sizeof(size_t));
         for(unsigned i = 0; i < LocalSize; i++)
         {
             in.read((char*)&Data, sizeof(ROW_STRUCT));
@@ -66,7 +67,7 @@ void OutputFile(enum IO io, const char* filename) {
     ROW_STRUCT* Data;
     if(io == BINARY) {
         out.open(filename, ios_base::binary);
-        out << libDB::GetSize();
+        out.write((char*)&libDB::Size, sizeof(size_t));
         for(unsigned i = 0; i < libDB::GetSize(); i++) {
             Data = libDB::Get(i);
             out.write((char*)Data, sizeof(ROW_STRUCT));
