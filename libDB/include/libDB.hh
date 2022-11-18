@@ -14,7 +14,10 @@ namespace libDB {
     void Delete(unsigned pos);
     ROW_STRUCT* Get(unsigned pos);
     inline int Set(ROW_STRUCT Data, unsigned pos);
-    int GetSize();
+    void Swap(int prev, int  next);
+    size_t GetSize();
+    size_t* GetPtrToSize();
+    void SetSize(int Size);
     int Init();
     void ShutDown();
     void Reset();

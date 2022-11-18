@@ -37,8 +37,16 @@ namespace libDB {
         return 0;
     }
 
-    int GetSize() {
+    size_t GetSize() {
         return Size;
+    }
+
+    size_t* GetPtrToSize() {
+        return &Size;
+    }
+
+    void SetSize(int Size) {
+        libDB::Size = Size;
     }
 
     ROW_STRUCT* Get(unsigned pos) {
@@ -65,4 +73,11 @@ namespace libDB {
         libDB::Init();
     }
     
+    void Swap(int prev, int next) {
+        ROW_STRUCT tmp1 = *(libDB::Get(prev));
+        ROW_STRUCT tmp2 = *(libDB::Get(next));
+
+        libDB::Set(tmp1, next);
+        libDB::Set(tmp2, prev);
+    }
 }
