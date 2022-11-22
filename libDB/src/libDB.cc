@@ -55,6 +55,10 @@ namespace libDB {
     }
 
     void Delete(unsigned pos) {
+        if(pos > Size) {
+            cout << "Delete: позиция для удаления больше кол-ва записей в БД!" << endl;
+            return;
+        }
         ROW_STRUCT* NewBase = (ROW_STRUCT*)malloc(sizeof(ROW_STRUCT) * (Size-1));
         int k = 0;
         for(unsigned i = 0; i < Size; i++) {

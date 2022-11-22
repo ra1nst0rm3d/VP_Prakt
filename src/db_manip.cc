@@ -25,13 +25,21 @@ void Input() {
 }
 
 void Output() {
+    wcout << "------------" << endl;
+    if(libDB::GetSize() == 0) {
+        cout << "Тут ничего нет, БД пустая!" << endl;
+        cout << "------------" << endl;
+        return;
+    }
     ROW_STRUCT* Data;
-    cout.setf(std::ios::left);
-    cout << "№  " << setw(30) << "Фамилия" << setw(19) << "Дата" << setw(14) << "Курс" << "Группа" << endl;
+    wcout.setf(std::ios::left);
+    wcout << "№  " << setw(30) << "Фамилия" << setw(19) << "Дата" << setw(14) << "Курс" << "Группа" << endl;
     for(unsigned i = 0; i < libDB::GetSize(); i++) {
         Data = libDB::Get(i);
-        cout << i+1 << "  " << setw(30) << Data->Surname << setw(15) << Data->Date << setw(10) << Data->Course << Data->Group << endl;
+        wcout << i+1 << "  " << setw(30) << Data->Surname << setw(15) << Data->Date << setw(10) << Data->Course << Data->Group << endl;
     }
+
+    wcout << "------------" << endl;
 }
 
 void InputFile(enum IO io, const char* filename) {
@@ -77,6 +85,10 @@ void OutputFile(enum IO io, const char* filename) {
 
 int Edit(int placement, int editable) {
     ROW_STRUCT *Ptr = libDB::Get(placement);
+    if(Ptr == NULL) {
+        cout << "Edit: позиция для изменения больше кол-ва записей в БД!" << endl;
+        return 0;
+    }
     cout << "Введите значение: ";
     switch(editable) {
         case 0:
